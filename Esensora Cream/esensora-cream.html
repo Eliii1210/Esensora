@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda - Esensora</title>
+  <link rel="stylesheet" href="tienda.css" />
+</head>
+
+<body>
+  <header class="navbar">
+    <img src="/img/esensora logo.jpg" alt="Logo Esensora" class="logo-navbar" />
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="tienda.html" class="activo">Tienda</a></li>
+        <li><a href="#carrito">Carrito</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="contenido-tienda">
+    <h1 class="titulo-tienda">Nuestros Productos</h1>
+
+    <section class="productos">
+      <!-- CARD DE PRODUCTO EJEMPLO -->
+      <div class="producto-card">
+        <div class="caja-imagen">
+          <img src="/img/aloe.png" alt="Producto 1" />
+        </div>
+        <div class="producto-info">
+          <h3>Crema Hidratante Aloe</h3>
+          <p>Elaborada principalmente con Aloe Vera puro, esta crema proporciona una hidratación profunda y refrescante desde la primera aplicación. Gracias a su alto contenido natural, ayuda a regenerar la piel, aliviar quemaduras solares y mantener una textura suave y saludable.</p>
+          <button class="boton-comprar" onclick="agregarAlCarrito('Crema Hidratante Aloe')">Comprar</button>
+        </div>
+      </div>
+      <!-- Producto 7 -->
+<div class="producto-card">
+  <div class="caja-imagen">
+    <img src="/img/eucalipto.png" alt="Producto 7" />
+  </div>
+  <div class="producto-info">
+    <h3>Gel Refrescante Eucalipto</h3>
+    <p>Formulado casi totalmente a base de eucalipto natural, este gel brinda una sensación de frescura inmediata en la piel. Sus propiedades descongestionantes y calmantes lo hacen ideal para días calurosos o después de actividad física intensa.</p>
+    <button class="boton-comprar" onclick="agregarAlCarrito('Gel Refrescante Menta')">Comprar</button>
+  </div>
+</div>
+
+<!-- Producto 8 -->
+<div class="producto-card">
+  <div class="caja-imagen">
+    <img src="/img/lavanda.png" alt="Producto 8" />
+  </div>
+  <div class="producto-info">
+    <h3> Crema Relajante Lavanda</h3>
+    <p>Con una base rica en extracto de lavanda, esta crema calma los sentidos y la piel al mismo tiempo. Su acción relajante natural ayuda a reducir la tensión muscular, irritaciones leves y facilita un mejor descanso nocturno.</p>
+    <button class="boton-comprar" onclick="agregarAlCarrito('Spray Calmante Herbal')">Comprar</button>
+  </div>
+</div>
+
+<!-- Producto 9 -->
+<div class="producto-card">
+  <div class="caja-imagen">
+    <img src="/img/bicarbonato.png" alt="Producto 9" />
+  </div>
+  <div class="producto-info">
+    <h3>Exfoliante Suave Bicarbonato</h3>
+    <p>Este producto está compuesto mayoritariamente de bicarbonato de sodio de grado cosmético. Su textura suave elimina impurezas, renueva la piel sin irritarla y regula el pH, ideal para pieles propensas a brotes o manchas.</p>
+    <button class="boton-comprar" onclick="agregarAlCarrito('Loción Corporal de Coco')">Comprar</button>
+  </div>
+</div>
+
+<!-- Producto 10 -->
+<div class="producto-card">
+  <div class="caja-imagen">
+    <img src="/img/miel.png" alt="Producto 10" />
+  </div>
+  <div class="producto-info">
+    <h3>Bálsamo Natural de Miel</h3>
+    <p>Elaborado principalmente con miel pura, este bálsamo es perfecto para nutrir profundamente la piel seca o agrietada. La miel aporta propiedades antibacterianas, antioxidantes y regeneradoras, siendo ideal para labios, manos y zonas delicadas.</p>
+    <button class="boton-comprar" onclick="agregarAlCarrito('Crema Manos Tropical')">Comprar</button>
+  </div>
+</div>
+
+<!-- Producto 11 -->
+<div class="producto-card">
+  <div class="caja-imagen">
+    <img src="/img/coco.png" alt="Producto 11" />
+  </div>
+  <div class="producto-info">
+    <h3>Loción Suavizante Aceite de Coco</h3>
+    <p>Enriquecida con aceite de coco como ingrediente principal, esta loción suaviza, hidrata y protege la piel de forma natural. Su base oleosa deja una sensación sedosa sin ser grasosa, ideal para climas cálidos y pieles sensibles.</p>
+    <button class="boton-comprar" onclick="agregarAlCarrito('Serum Nutritivo Nocturno')">Comprar</button>
+  </div>
+</div>
+
+
+      <!-- Copia más cards iguales cambiando nombre, descripción e imagen -->
+    </section> 
+
+    <section id="carrito" class="carrito">
+      <h2>🛒 Carrito de Compras</h2>
+      <ul id="lista-carrito"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Esensora Créame &copy; 2025 - Inspirado por la naturaleza tropical</p>
+  </footer>
+
+  <script>
+    const lista = document.getElementById('lista-carrito');
+
+    function agregarAlCarrito(nombreProducto) {
+      const item = document.createElement('li');
+      item.textContent = `✔ ${nombreProducto}`;
+      lista.appendChild(item);
+    }
+  </script>
+</body>
+</html>
