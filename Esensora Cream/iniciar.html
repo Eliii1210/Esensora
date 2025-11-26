@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Login & Registro - Funcionando</title>
+<link rel="stylesheet" href="/iniciar.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-left">
+    <img class="logo-img" src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240"><rect rx="30" width="240" height="240" fill="%23ffd7e3"/><text x="50%" y="55%" font-family="Poppins, sans-serif" font-size="64" fill="%23ff5fa3" text-anchor="middle">Mi</text></svg>' alt="Logo">
+    <div style="font-weight:800;color:var(--accent)">MiWeb</div>
+  </div>
+
+  <ul>
+    <li><a href="#" id="navInicio">Inicio</a></li>
+    <li><a href="#" id="navLogin">Login</a></li>
+    <li><a href="#" id="navRegistro">Registro</a></li>
+    <li><a href="#" id="navContacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- CONTENEDOR CENTRAL -->
+<div class="wrap">
+
+  <!-- LOGIN -->
+  <div class="card" id="loginBox" aria-hidden="false">
+    <h2>✨ Iniciar Sesión</h2>
+    <form id="loginForm">
+      <input id="loginEmail" type="email" placeholder="Correo electrónico" required>
+      <input id="loginPass" type="password" placeholder="Contraseña" required minlength="4">
+      <button type="submit">Entrar</button>
+    </form>
+
+    <div class="link">¿No tienes cuenta? <span id="toRegister">Regístrate</span></div>
+    <div id="loginMsg" class="msg hidden"></div>
+  </div>
+
+  <!-- REGISTRO -->
+  <div class="card hidden" id="registerBox" aria-hidden="true">
+    <h2>🌸 Crear Cuenta</h2>
+    <form id="registerForm">
+      <input id="regName" type="text" placeholder="Nombre completo" required>
+      <input id="regEmail" type="email" placeholder="Correo electrónico" required>
+      <input id="regPass" type="password" placeholder="Contraseña" required minlength="4">
+      <button type="submit">Registrarme</button>
+    </form>
+
+    <div class="link">¿Ya tienes cuenta? <span id="toLogin">Inicia Sesión</span></div>
+    <div id="regMsg" class="msg hidden"></div>
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+  const loginBox = document.getElementById('loginBox');
+  const registerBox = document.getElementById('registerBox');
+  const toRegister = document.getElementById('toRegister');
+  const toLogin = document.getElementById('toLogin');
+
+  document.getElementById('navLogin').addEventListener('click', e => { e.preventDefault(); showLogin() });
+  document.getElementById('navRegistro').addEventListener('click', e => { e.preventDefault(); showRegister() });
+
+  toRegister.addEventListener('click', showRegister);
+  toLogin.addEventListener('click', showLogin);
+
+  function showRegister(){
+    loginBox.classList.add('hidden');
+    registerBox.classList.remove('hidden');
+    loginBox.setAttribute('aria-hidden','true');
+    registerBox.setAttribute('aria-hidden','false');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function showLogin(){
+    registerBox.classList.add('hidden');
+    loginBox.classList.remove('hidden');
+    registerBox.setAttribute('aria-hidden','true');
+    loginBox.setAttribute('aria-hidden','false');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // LOGIN
+  const loginForm = document.getElementById('loginForm');
+  const loginMsg = document.getElementById('loginMsg');
+
+  loginForm.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    loginMsg.classList.remove('error');
+    loginMsg.classList.remove('hidden');
+
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass  = document.getElementById('loginPass').value.trim();
+
+    const usersJson = localStorage.getItem('miweb_users');
+    const users = usersJson ? JSON.parse(usersJson) : [];
+    const found = users.find(u => u.email === email && u.pass === pass);
+
+    if(found){
+      loginMsg.textContent = `¡Bienvenido, ${found.name}!`;
+
+      // 🔥 REDIRECCIÓN A LA PÁGINA DE INICIO
+      window.location.href = "esensora-cream.html";
+
+    } else {
+      loginMsg.textContent = 'Usuario o contraseña incorrectos.';
+      loginMsg.classList.add('error');
+    }
+  });
+
+  // REGISTRO
+  const registerForm = document.getElementById('registerForm');
+  const regMsg = document.getElementById('regMsg');
+
+  registerForm.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    regMsg.classList.remove('error');
+    regMsg.classList.remove('hidden');
+
+    const name  = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const pass  = document.getElementById('regPass').value.trim();
+
+    const usersJson = localStorage.getItem('miweb_users');
+    const users = usersJson ? JSON.parse(usersJson) : [];
+
+    if(users.some(u => u.email === email)){
+      regMsg.textContent = 'Ese correo ya está registrado.';
+      regMsg.classList.add('error');
+      return;
+    }
+
+    users.push({ name, email, pass });
+    localStorage.setItem('miweb_users', JSON.stringify(users));
+
+    regMsg.textContent = 'Registro exitoso ✅ Redirigiendo...';
+
+    // 🔥 REDIRECCIÓN A LA PÁGINA DE INICIO
+ // mostrar login después de un momento
+    setTimeout(() => {
+      showLogin();
+      // opcional: rellenar el correo en el login para facilitar
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPass').value = '';
+      document.getElementById('loginMsg').classList.add('hidden');
+    }, 900);
+  });
+
+  // console-friendly message para debug
+  console.log('Script listo: login/registro activos. Abre la consola (F12) si hay errores.');
+});
+</script>
+
+</body>
+</html>
